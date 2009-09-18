@@ -13,6 +13,12 @@ module Heroku::Command
 			@cli.read_credentials.should == %w(user pass)
 		end
 
+		it "uses the credentials file specified by the --cred option" do
+      sandbox = "#{Dir.tmpdir}/cli_spec_#{Process.pid}"
+			@cli.stub!(:args).and_return(['--cred', sandbox])
+			@cli.credentials_file.should == sandbox
+		end
+
 		it "takes the user from the first line and the password from the second line" do
 			@cli.stub!(:read_credentials).and_return(%w(user pass))
 			@cli.user.should == 'user'

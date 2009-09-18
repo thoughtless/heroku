@@ -28,7 +28,7 @@ module Heroku::Command
 		end
 
 		def credentials_file
-			"#{home_directory}/.heroku/credentials"
+      @cred ||= extract_option('--cred') || "#{home_directory}/.heroku/credentials"
 		end
 
 		def get_credentials    # :nodoc:
